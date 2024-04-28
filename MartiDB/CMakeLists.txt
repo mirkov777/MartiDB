@@ -1,6 +1,5 @@
-﻿# CMakeList.txt : CMake project for MartiDB, include source and define
-# project specific logic here.
-#
+﻿# Include directories
+include_directories("./inc")
 
 # Create a list of source files
 set(SOURCES_DIR "./src")

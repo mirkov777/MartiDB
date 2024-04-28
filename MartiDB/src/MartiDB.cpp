@@ -1,7 +1,4 @@
-﻿// MartiDB.cpp : Defines the entry point for the application.
-//
-
-#include "MartiDB.h"
+﻿#include "MartiDB.h"
 
 using namespace std;
 

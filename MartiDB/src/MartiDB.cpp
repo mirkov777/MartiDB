@@ -1,9 +1,19 @@
 ﻿#include "MartiDB.h"
+#include <iostream>
 
-using namespace std;
+MartiDB::MartiDB() {};
 
-int main()
-{
-	cout << "Hello CMake." << endl;
-	return 0;
-}
+Database MartiDB::createEmptyDatabase(std::string& name) {
+	return Database::createEmptyDatabase(name);
+};
+
+
+
+
+//using namespace std;
+//
+//int main()
+//{
+//	//std::cout << "Hello CMake." << std::endl;
+//	return 0;
+//}

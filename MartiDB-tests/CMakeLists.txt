@@ -24,7 +24,7 @@ add_executable(MartiDB-tests ${SOURCE_FILES} ${HEADER_FILES})
 
 # Link Catch2 with the tests target
 target_link_libraries(MartiDB-tests PRIVATE Catch2::Catch2WithMain)
-
+target_link_libraries(MartiDB-tests PRIVATE MartiDB)
 # Set C++ standard if supported by the CMake version
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET MartiDB-tests PROPERTY CXX_STANDARD 20)

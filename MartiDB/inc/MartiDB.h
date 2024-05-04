@@ -8,6 +8,8 @@ public:
 	MartiDB();
 
 	static Database createEmptyDatabase(std::string& name);
+
+	static Database loadDatabase(std::string& name);
 };
 
 #endif // MARTIDB_H.

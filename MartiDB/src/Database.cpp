@@ -22,6 +22,13 @@ Database Database::createEmptyDatabase(std::string dbname) {
 	return Database(dbname, database_folder);
 };
 
+Database Database::load(std::string dbname) {
+	std::string base_dir("./MartiDB");
+	std::string database_folder(base_dir + "/" + dbname);
+
+	return Database(dbname, database_folder);
+}
+
 void Database::destroy() {
 	if (fs::exists(m_fullpath)) {
 		fs::remove_all(m_fullpath);

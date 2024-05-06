@@ -1,12 +1,21 @@
-﻿// MartiDB.cpp : Defines the entry point for the application.
-//
+﻿#include "MartiDB.h"
+#include <iostream>
 
-#include "MartiDB.h"
+MartiDB::MartiDB() {};
 
-using namespace std;
+Database MartiDB::createEmptyDatabase(std::string& name) {
+	return Database::createEmptyDatabase(name);
+};
 
-int main()
-{
-	cout << "Hello CMake." << endl;
-	return 0;
+Database MartiDB::loadDatabase(std::string& name) {
+	return Database::load(name);
 }
+
+
+//using namespace std;
+//
+//int main()
+//{
+//	//std::cout << "Hello CMake." << std::endl;
+//	return 0;
+//}

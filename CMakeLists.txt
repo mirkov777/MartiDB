@@ -13,5 +13,5 @@ project ("MartiDB")
 
 # Include sub-projects.
 add_subdirectory ("MartiDB")
-#add_subdirectory ("MartiDB-cli")
-#add_subdirectory ("MartiDB-tests")
+add_subdirectory ("MartiDB-cli")
+add_subdirectory ("MartiDB-tests")

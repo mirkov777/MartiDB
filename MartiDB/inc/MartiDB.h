@@ -1,8 +1,15 @@
-﻿// MartiDB.h : Include file for standard system include files,
-// or project specific include files.
+﻿#ifndef MARTIDB_H
+#define MARTIDB_H
 
-#pragma once
+#include <Database.h>
 
-#include <iostream>
+class MartiDB {
+public:
+	MartiDB();
 
-// TODO: Reference additional headers your program requires here.
+	static Database createEmptyDatabase(std::string& name);
+
+	static Database loadDatabase(std::string& name);
+};
+
+#endif // MARTIDB_H.

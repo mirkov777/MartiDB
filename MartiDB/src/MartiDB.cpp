@@ -1,21 +1,16 @@
-﻿#include "MartiDB.h"
-#include <iostream>
+﻿//Own includes
+#include "martidb.h"
+#include "extensions/database_ext.h"
 
-MartiDB::MartiDB() {};
+using namespace martidb;
+using namespace martidbext;
 
-Database MartiDB::createEmptyDatabase(std::string& name) {
-	return Database::createEmptyDatabase(name);
-};
+	MartiDB::MartiDB() {};
 
-Database MartiDB::loadDatabase(std::string& name) {
-	return Database::load(name);
-}
+	const std::unique_ptr<IDatabase> MartiDB::createEmptyDatabase(std::string& name) {
+		return EmbeddedDatabase::createEmptyDatabase(name);
+	};
 
-
-//using namespace std;
-//
-//int main()
-//{
-//	//std::cout << "Hello CMake." << std::endl;
-//	return 0;
-//}
+	const std::unique_ptr<IDatabase> MartiDB::loadDatabase(std::string& name) {
+		return EmbeddedDatabase::load(name);
+	}

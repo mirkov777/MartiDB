@@ -1,14 +1,10 @@
-# Include directories
-include_directories("./inc")
-include_directories("../MartiDB/inc")
+cmake_minimum_required(VERSION 3.12)
 
-# Create a list of source files
-set(SOURCES_DIR "./src")
-file(GLOB_RECURSE SOURCE_FILES "${SOURCES_DIR}/*.cpp")
-
-# Create a list of header files
-set(INCLUDES_DIR "./inc")
-file(GLOB_RECURSE HEADER_FILES "${INCLUDES_DIR}/*.h")
+# Create executable
+add_executable(martidb-tests
+	src/database-managment-tests.cpp
+	src/key-value-tests.cpp
+)
 
 # Fetch Catch2 from its GitHub repository
 include(FetchContent)
@@ -19,13 +15,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-# Add the executable target for tests
-add_executable(MartiDB-tests ${SOURCE_FILES} ${HEADER_FILES})
+# Include headers
+include_directories("./inc")
+
+# Include martidb sources
+include_directories(${martidb_SOURCE_DIR})
 
 # Link Catch2 with the tests target
-target_link_libraries(MartiDB-tests PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(MartiDB-tests PRIVATE MartiDB)
-# Set C++ standard if supported by the CMake version
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET MartiDB-tests PROPERTY CXX_STANDARD 20)
-endif()
+target_link_libraries(martidb-tests PRIVATE Catch2::Catch2WithMain)
+
+# Link martidb with the tests target
+target_link_libraries(martidb-tests PRIVATE martidb)
+
+target_compile_features(martidb-tests PRIVATE cxx_std_17)

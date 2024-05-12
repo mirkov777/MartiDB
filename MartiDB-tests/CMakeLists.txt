@@ -4,7 +4,8 @@ cmake_minimum_required(VERSION 3.12)
 add_executable(martidb-tests
 	src/database-managment-tests.cpp
 	src/key-value-tests.cpp
-)
+	src/performance-tests.cpp
+ "src/performance-tests.cpp")
 
 # Fetch Catch2 from its GitHub repository
 include(FetchContent)

@@ -1,29 +1,20 @@
-# Include directories
-include_directories("./inc")
-include_directories("../MartiDB/inc")
+cmake_minimum_required(VERSION 3.12)
 
-# Create a list of source files
-set(SOURCES_DIR "./src")
-file(GLOB_RECURSE SOURCE_FILES "${SOURCES_DIR}/*.cpp")
-
-# Create a list of header files
-set(INCLUDES_DIR "./inc")
-file(GLOB_RECURSE HEADER_FILES "${INCLUDES_DIR}/*.h")
-
-# Fetch Catch2 from its GitHub repository
-include(FetchContent)
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v3.4.0 # or a later s
+# Add the executable target for cli
+add_executable(martidb-cli
+	src/main.cpp
 )
-FetchContent_MakeAvailable(Catch2)
 
-# Add the executable target for tests
-add_executable(MartiDB-cli ${SOURCE_FILES} ${HEADER_FILES})
+# Include headers
+include_directories("./inc")
 
-target_link_libraries(MartiDB-cli PRIVATE MartiDB)
-# Set C++ standard if supported by the CMake version
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET MartiDB-cli PROPERTY CXX_STANDARD 20)
-endif()
+# Include martidb sources
+include_directories(${martidb_SOURCE_DIR})
+
+# Link Catch2 with the cli target
+target_link_libraries(martidb-cli PRIVATE Catch2::Catch2WithMain)
+
+# Link martidb with the cli target
+target_link_libraries(martidb-cli PRIVATE martidb)
+
+target_compile_features(martidb-cli PRIVATE cxx_std_17)

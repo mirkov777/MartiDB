@@ -1,10 +1,14 @@
+//Own includes
+#include "martidb.h"
+//System includes
 #include <iostream>
 #include <memory>
+//Other includes
 #include <cxxopts.hpp>
 
-#include <MartiDB.h>
-
 #define FIRST_ARG 1
+
+using namespace martidb;
 
 void printUsage() {
 	std::cout << "Usage: " << std::endl; //#TODO
@@ -35,7 +39,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		std::string dbname(result["n"].as<std::string>());
-		Database db(MartiDB::createEmptyDatabase(dbname));
+		std::unique_ptr<martidb::IDatabase> db(MartiDB::createEmptyDatabase(dbname));
 
 		return 0;
 	}
@@ -58,8 +62,8 @@ int main(int argc, char* argv[]) {
 		std::string read_key(result["k"].as<std::string>());
 		std::string read_value(result["v"].as<std::string>());
 
-		Database db(MartiDB::loadDatabase(dbname));
-		db.setKeyValue(read_key, read_value);
+		std::unique_ptr<martidb::IDatabase> db(MartiDB::loadDatabase(dbname));
+		db->setKeyValue(read_key, read_value);
 
 		return 0;
 	}
@@ -78,8 +82,8 @@ int main(int argc, char* argv[]) {
 		std::string dbname(result["n"].as<std::string>());
 		std::string read_key(result["k"].as<std::string>());
 
-		Database db(MartiDB::loadDatabase(dbname));
-		std::cout << db.getKeyValue(read_key) << std::endl;
+		std::unique_ptr<martidb::IDatabase> db(MartiDB::loadDatabase(dbname));
+		std::cout << db->getKeyValue(read_key) << std::endl;
 
 		return 0;
 	}
@@ -91,9 +95,9 @@ int main(int argc, char* argv[]) {
 		}
 
 		std::string dbname(result["n"].as<std::string>());
-		Database db(MartiDB::loadDatabase(dbname));
+		std::unique_ptr<martidb::IDatabase> db(MartiDB::loadDatabase(dbname));
 
-		db.destroy();
+		db->destroy();
 
 		return 0;
 	}

@@ -2,32 +2,29 @@
 #define DATABASE_H
 
 #include <string>
+#include <memory>
 
-#define DEBUG_CHECK_TRUE(res, msg) \
-    if (res == true) { \
-        std::cout << msg << std::endl; \
-    } else { \
-        std::cout << "ERROR ERROR ERROR" << std::endl; \
-    }
+namespace martidb {
 
-class Database {
-public:
-	Database(std::string name, std::string full_path);
+	class IDatabase {
+	public:
+		IDatabase() = default;
+		virtual ~IDatabase() = default;
+		virtual std::string                       getDirectory(void) = 0;
 
-	std::string     getDirectory(void);
+		//Managment
+		static const std::unique_ptr<IDatabase>   createEmptyDatabase(std::string name);
+		static const std::unique_ptr<IDatabase>   load(std::string name);
+		virtual void                              destroy(void) = 0;
 
-	//Managment
-	static Database createEmptyDatabase(std::string name);
-	static Database load(std::string name);
-	void            destroy(void);
+		//Key-Value
+		virtual void                              setKeyValue(std::string key, std::string value) = 0; //Maybe change to int in the future for <better> error handling
+		virtual std::string                       getKeyValue(std::string key) = 0;
 
-	//Key-Value
-	void            setKeyValue(std::string key, std::string value); //change to int in the future for <better> error handling
-	std::string     getKeyValue(std::string key);
+	private:
+		 
+	};
 
-protected:
-	std::string m_name;
-	std::string m_fullpath;
-};
+}
 
 #endif // !DATABASE_H

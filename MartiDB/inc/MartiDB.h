@@ -1,15 +1,19 @@
 ﻿#ifndef MARTIDB_H
 #define MARTIDB_H
 
-#include <Database.h>
+#include "database.h"
 
-class MartiDB {
-public:
-	MartiDB();
+namespace martidb {
 
-	static Database createEmptyDatabase(std::string& name);
+	class MartiDB {
+	public:
+		MartiDB();
 
-	static Database loadDatabase(std::string& name);
-};
+		static const std::unique_ptr<IDatabase> createEmptyDatabase(std::string& name);
+
+		static const std::unique_ptr<IDatabase> loadDatabase(std::string& name);
+	};
+
+}
 
 #endif // MARTIDB_H.
